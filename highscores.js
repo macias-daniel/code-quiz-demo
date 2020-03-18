@@ -8,14 +8,17 @@ var resetScoresButton = document.getElementById("reset-scores")
 //Display all scores saved
 function renderScores(){
 
+    //Checks if there are any scores to be displayed
     if(savedScores === null){
         savedScores = []
 
+        //If no scores are available display that on highscore page
         var newLi = document.createElement("li")
         newLi.textContent = "No scores saved, play game to display score"
         listScores.appendChild(newLi)
     }
 
+    //If there are scores to be displayed go through them and display themon highscore page
     for(var i = 0; i < savedScores.length; i++){
 
         var newLi = document.createElement("li")
