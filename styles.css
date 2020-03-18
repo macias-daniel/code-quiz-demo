@@ -1,16 +1,22 @@
 .content-wrapper{
     width: 50%;
-    height: 500px;
-    margin: 0 auto;
+    height: 100%;
+    margin: 50px auto;
     border: black 1px solid;
     padding: 20px;
 }
 
 .clock{
-    display: inline-block;
     float: right;
-    margin-right: 20px;
+
+    margin-top: 10px;
+    margin-right: 10px;
 }
+
+.main-highscore-button{
+    margin-left: 10px;
+}
+
 
 #highscore-button{
     margin-left: 10px;
@@ -27,8 +33,9 @@
 
 button{
     color: white;
-    background-color: #1eb2a6;
+    background-color: #5bc0de;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 ul {
@@ -41,3 +48,4 @@ ul {
     border-top : none;
     width: 100%;
 }
+

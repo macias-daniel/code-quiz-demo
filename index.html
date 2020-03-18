@@ -9,10 +9,10 @@
 </head>
 <body>
     <!-- HighScore Tab -->
-    <button id="highscore-button" class="button">View HighScores</button>
+    <button onclick="window.location.href='./highscores.html'" class="button main-highscore-button">View HighScores</button>
 
     <!-- Time Display -->
-    <p class="clock">Time Left: <span id="time-display">00</span></p>
+    <h3 class="clock"> Time Left:  <span id="time-display" class="badge badge-secondary">0</span></h3>
 
     <!-- Main Content Wrapper -->
     <div class="content-wrapper">
@@ -25,22 +25,23 @@
             </div>
 
             <!-- Questions -->
-            <div class="row ">
-                <div class="col">
-                    <ul id="answer-section"></ul>
+            <div class="row">
+                <div class="col" id="answers">
+                    <ul id="button-section"></ul>
                 </div>
             </div>
 
             <!-- Correctness -->
             <div class="row ">
                 <div class="col">
-                    <h3 id="correctness-section"></h3>
+                    <p id="correctness-section"></p>
                 </div>
             </div>
 
 
         </div>  
     </div>
+    
     <script src="./script.js"></script>
 
     
