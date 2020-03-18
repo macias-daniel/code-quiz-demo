@@ -64,12 +64,90 @@ function onStartUp(){
     possibleAnswers.appendChild(li);
 }
 
+//Sets up template for quiz
+function setUpQuiz(){
+
+    //Remove Summary and Start Button from onStartUpFunction
+    var rmSummary = document.getElementById("summary")
+    rmSummary.parentNode.removeChild(rmSummary)
+    var rmButton = document.getElementById("button1")
+    rmButton.parentNode.removeChild(rmButton)
+    
+    // Add 4 buttons in li to ul to display possible answers to question
+    for(var i = 1 ; i <= 4; i ++){
+
+        var li = document.createElement("li")
+    
+        var button = document.createElement("button")
+        button.setAttribute("id", "button" + i)
+                
+        li.appendChild(button);
+        possibleAnswers.appendChild(li);   
+    }
+
+    //Start Quiz Countdown
+    countDown = setInterval(function(){
+        time--
+        timeDisplay.textContent = time
+
+        //If the time reaches 0 stop count down
+        if(time <= 0){
+            time = 0
+
+            //take user to high scores section
+            highScores()
+            endQuiz()
+        }
+    },1000)
+
+    nextQuestion()
+
+}
+
+//Checks if the answer the user selected is correct
+function isUserCorrect(userClicked){
+    var isCorrectAnswer = userClicked.getAttribute("isCorrect")
+    var quickDisplay
+
+    //Checks whether or no the user got the answer correct
+    if(isCorrectAnswer === "true"){
+        //displays user was correct
+        displayCorrectness.style.borderTop = "1px solid black"
+        displayCorrectness.textContent = "Your correct"
+
+        //remove correctness display after one second
+        quickDisplay = setTimeout(function(){
+            displayCorrectness.style.borderTop = "none"
+            displayCorrectness.textContent = ""
+            clearTimeout(quickDisplay)
+        },1000)
+
+        return true
+    }else{
+        //Displays user was incorrect
+        displayCorrectness.style.borderTop = "1px solid black"
+        displayCorrectness.textContent = "Your incorrect -10 seconds :("
+
+        //Decreasing time on clock by 10
+        time -= 10
+
+        //removes incorrectness display after one second
+        quickDisplay = setTimeout(function(){
+            displayCorrectness.style.borderTop = "none"
+            displayCorrectness.textContent = ""
+            clearTimeout(quickDisplay)
+        },1000)
+        return false
+    }
+}
+
 //Displays next question from possibleQuestions array
 function nextQuestion(){
+
     //Change questionPrompt to next question
     questionPrompt.textContent = possibleQuestions[currentQuestion][0]
 
-    //Display possible answer on each button
+    //Display questions possible answer on each button
     for(var i = 1; i <= 4; i++){
         
         var currentButton = document.getElementById("button" + i)
@@ -91,45 +169,6 @@ function nextQuestion(){
     currentQuestion++
 }
 
-//Sets up template for quiz
-function setUpQuiz(){
-
-    //Remove Summary and Start Button from onStartUpFunction
-    var rmSummary = document.getElementById("summary")
-    rmSummary.parentNode.removeChild(rmSummary)
-    var rmButton = document.getElementById("button1")
-    rmButton.parentNode.removeChild(rmButton)
-    
-    // Add 4 buttons in li to ul
-    for(var i = 1 ; i <= 4; i ++){
-
-        var li = document.createElement("li")
-    
-        var button = document.createElement("button")
-        button.setAttribute("id", "button" + i)
-                
-        li.appendChild(button);
-        possibleAnswers.appendChild(li);   
-    }
-
-    //Start Quiz Countdown
-    countDown = setInterval(function(){
-        time--
-        timeDisplay.textContent = time
-
-        if(time <= 0){
-            time = 0
-            highScores()
-            endQuiz()
-            
-            timeDisplay.textContent = "0"
-        }
-    },1000)
-
-    nextQuestion()
-
-}
-
 //Removes quiz template
 function endQuiz(){
     //Go through each button element and remove it
@@ -139,44 +178,16 @@ function endQuiz(){
     }
 }
 
-//Checks if the answer the user selected is correct
-function isUserCorrect(userClicked){
-    var isCorrectAnswer = userClicked.getAttribute("isCorrect")
-    var quickDisplay
-
-    //Displays whether or no the user got the answer correct
-    if(isCorrectAnswer === "true"){
-        displayCorrectness.style.borderTop = "1px solid black"
-        displayCorrectness.textContent = "Your correct"
-
-        //remove correctness display
-        quickDisplay = setTimeout(function(){
-            displayCorrectness.style.borderTop = "none"
-            displayCorrectness.textContent = ""
-            clearTimeout(quickDisplay)
-        },1000)
-        return true
-    }else{
-        displayCorrectness.style.borderTop = "1px solid black"
-        displayCorrectness.textContent = "Your incorrect -10 seconds :("
-        time -= 10
-        quickDisplay = setTimeout(function(){
-            displayCorrectness.style.borderTop = "none"
-            displayCorrectness.textContent = ""
-            clearTimeout(quickDisplay)
-        },1000)
-        return false
-    }
-}
-
-//Allows user to input high score at the end of quiz
+//Takes  user to high scoresection and allows user to input high score at the end of quiz
 function highScores(){
 
     //stop countdown
     clearInterval(countDown)
+
     //Setting timer to 0
     timeDisplay.textContent = "0"
 
+    //Changing main content header
     questionPrompt.textContent = "All Done!"
 
     //Displaying score
@@ -212,14 +223,14 @@ possibleAnswers.addEventListener("click", function(event){
 
         // If quiz was just started
         if(currentQuestion === 0){
+
             //Call set up quiz function
             setUpQuiz()
-            //Start Quiz Timer
             
-        //Check if user is correct
+        //Check if user is correct depnding on which answer they clicked
         }else if(isUserCorrect(onClick)){
         
-            //If the last question is being check take user to highscore screen
+            //If the last question is being checked take user to highscore screen afterwards
             if(currentQuestion === possibleQuestions.length){
 
                 highScores();
@@ -234,18 +245,21 @@ possibleAnswers.addEventListener("click", function(event){
     }    
 })
 
-//looks for submit in highscore page and stores it to local storage
+//looks for submit on highscore section and stores values to local storage
 answerSection.addEventListener("submit", function(event){
     event.preventDefault()
+
+    //Saving user inputed value to local storage
     var userInput = document.getElementById("userInput")
     var newSave = userInput.value + "'s score: " + time
     currentSavedScores.push(newSave)
     localStorage.setItem("savedScores",JSON.stringify(currentSavedScores))
+
     //Go to highscores page
     window.location.href = "./highscores.html";
 
 })
 
 
-
+//Starts quiz
 onStartUp();
