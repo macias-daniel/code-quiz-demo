@@ -7,7 +7,7 @@ var answerSection = document.getElementById("answers")
 var highScoreButton = document.getElementById("highscore-button")
 var timeDisplay = document.getElementById("time-display")
 
-var summary = "Welcome to my code quiz, see how you fare in this semi-challenging javascript quiz that tests your wits in all the right ways. Good luck, and be careful, get to many wrong and you might run out of time"
+var summary = "Welcome to my code quiz, see how you fare in this challenging javascript quiz that tests your wits in all the right ways. Good luck, and be careful, get to many wrong and you might run out of time MUAHAHAHA"
 
 
 var currentQuestion = 0
