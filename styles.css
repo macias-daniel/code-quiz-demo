@@ -1,3 +1,4 @@
+/* Main Content Wrapper Styles */
 .content-wrapper{
     width: 50%;
     height: 100%;
@@ -6,9 +7,9 @@
     padding: 20px;
 }
 
+/* Constant elements */
 .clock{
     float: right;
-
     margin-top: 10px;
     margin-right: 10px;
 }
@@ -18,14 +19,20 @@
 }
 
 
+/* HighScore Section Styles */
 #highscore-button{
     margin-left: 10px;
 }
 
+/* Main Quiz Styles */
 #question-section{
     margin-top: 10px;
 }
 
+#correctness-section{
+    border-top : none;
+    width: 100%;
+}
 
 #start{
     margin-top: 50px;
@@ -44,8 +51,4 @@ ul {
     background-color: white;
   }
 
-#correctness-section{
-    border-top : none;
-    width: 100%;
-}
 
